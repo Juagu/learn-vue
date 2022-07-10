@@ -49,7 +49,7 @@ Vue.prototype.$store = store
 
 ### vuex数据修改：
 
-![vuex](D:\Program Files\Typora\vuex.png)
+![vuex](vuex.png)
 
 vuex数据修改如果是异步方式，需要通过actions提交到mutaions里面，在同步到state中。
 
