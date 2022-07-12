@@ -322,7 +322,69 @@ this.$store.dispath('aIncrement','参数')
 
 ##### 5.module
 
+vue使用单一状态树，那么也意味着很多状态都会交给vuex来管理，当应用变得非常复杂时，store对就有可能变得相当臃肿。为了解决这个问题，vuex永续我们将store分割成module，而每个模块都拥有自己的state、mutaition、action、getters等
 
+```javascript
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+//1.安装插件
+Vue.use(Vuex)
+//2.创建对象
+const moduleA = {
+    state：{
+    name:'张三',
+    mutations: {},
+    actions:{},
+    getters:{}
+}
+}
+const store = new Vuex.Store({
+    state:{
+        connter:1000
+    },
+    mutations：{
+    	udpateName(sate,payload)
+    		state.name = payload
+		}
+	},
+    actions:{
+        aupdateName(context){
+            setTimeout(() => {
+                context.commit('updateName','wangwu')
+            },1000)
+        }
+    },
+    getters:{
+        fullname(state){
+            return state.name +'111'
+        },
+        fullname2(state,getter){
+            return getters.fullname+'2222'
+        },
+        // 引用根模块操作，rootstate表示跟目录
+        fullname3(state,getter,rootstate){
+            return getters.fullname2+rootstate.connter
+        }
+    },
+    modules:{
+        a: moduleA
+    }    
+})
+//3.导出store对象
+export default store
+
+//module 使用
+{{this.$store.state.a.name}}
+//module mutation
+{{this.$store.commit('updateName','lisi')}}
+//module getter
+{{this.$store.getters.fullname}}
+//异步修改
+this.$store.dispath('aupdateName')
+
+
+```
 
 
 
